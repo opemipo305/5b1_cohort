@@ -1,28 +1,29 @@
-from datetime import datetime
-import random
+from datetime import datetime   # to work with date you must import date time module 
+import random # The import random loads the random module
+#  a module is a file consisting of Python code. It can define functions, classes, and variables
 
-
-data = {'3665935030': {'name': 'Desmond', 'dob': '31/21/21', 'bvn': '23456789', 'pin': '1234', 'bal': 185000}}
+data = {'3665935030': {'name': 'Desmond', 'dob': '31/21/21', 'bvn': '23456789', 'pin': '1234', 'bal': 185000}} # data is  
+#(line 5)   a variable assigned to a value, and this above is a nested dictionary
 
 trans_data = {'3665935030': 
-    [{'amount': 200000, 'type': 'credit', 'action': 'deposit', 'date': datetime.strptime('13-02-2022',"%d-%m-%Y").date()}, 
+    [{'amount': 200000, 'type': 'credit', 'action': 'deposit', 'date': datetime.strptime('13-02-2022', ).date()}, 
      {'amount': 12000, 'type': 'debit', 'action': 'withdrawal', 'date': datetime.strptime('14-02-2022',"%d-%m-%Y").date()},
      {'amount': 3000, 'type': 'debit', 'action': 'withdrawal', 'date': datetime.strptime('19-02-2022',"%d-%m-%Y").date()}]}
 
-def get_stats(start_date:datetime, end_date:datetime, transactions:list):
+def get_stats(start_date:datetime, end_date:datetime, transactions:list): # def means defining a funtiong which means get_stats is a function
     """_summary_
-
-    Args:
+(this comment is  a docstring) 
+    Args: (argument)
         start_date (datetime): _description_
         end_date (datetime): _description_
         transactions (list): _description_
     """
-    lower_limit = filter(lambda x:x['date']>=start_date, transactions)
+    lower_limit = filter(lambda x:x['date']>=start_date, transactions) #lambda function can take any number of arguments, but can only have one expression.
     
-    main_data = list(filter(lambda x:x['date']<=end_date, lower_limit))
+    main_data = list(filter(lambda x:x['date']<=end_date, lower_limit)) #filter is a class or a function
     
-    print(f"\nYour statement of account from {datetime.strftime(start_date, '%d-%b-%Y')} to {datetime.strftime(end_date, '%d-%b-%Y')} is given below:")
-    for data in main_data:
+    print(f"\nYour statement of account from {datetime.strftime(start_date, '%d-%b-%Y')} to {datetime.strftime(end_date, '%d-%b-%Y')} is given below:") #d,b,y stands for short version of date,month,year
+    for data in main_data:# in is to check if an item is presents in an iterable while for is a loop
         print(f"\nDate: {datetime.strftime(data['date'], '%d-%b-%Y')}")
         print(f"Amount: ${data['amount']}")
         print(f"Transaction Type: {data['type'].title()}")
@@ -32,10 +33,10 @@ def get_stats(start_date:datetime, end_date:datetime, transactions:list):
     credit = [data['amount'] for data in main_data if data['type']=='credit']
     debit = [data['amount'] for data in main_data if data['type']=='debit']
     
-    try:
+    try: # The try block lets you test a block of code for errors
         average_credit = round(sum(credit)/len(credit), 3)
         print(f"The average credit during this period was ${average_credit}")
-    except ZeroDivisionError:
+    except ZeroDivisionError: #t defines a block of code to run if the try block raises an error.
         print("The average credit during this period was $0.00")
         
     try:
@@ -44,22 +45,22 @@ def get_stats(start_date:datetime, end_date:datetime, transactions:list):
     except ZeroDivisionError:
         print("The average debit during this period was $0.00")
     
-    return 
+    return # return keyword is to exit a function and return a value.
 
 
 print("Welcome to the AstroBank App")
-while True:
+while True: #To create a while loop, 	Boolean value, result of comparison operations
     print("Enter s to signup or l to login:")
     print("Enter any other key to close")
     choice = input(">").lower()
 
     if choice == 'l':
-        acc_num = input("Enter your account num:\n>")
+        acc_num = input("Enter your account num:\n>") # input function very common an will always change any item in it to a string
         pin = input("Enter your pin:\n>")
         
-        user = data.get(acc_num)
+        user = data.get(acc_num) # get() method returns the value of the item with the specified key in a dictionary
         
-        if user and user['pin'] == pin:
+        if user and user['pin'] == pin: #  if  is To make a conditional statement, and is A logical operator
             print(f"Welcome {user['name']}.\nYour account balance is ${user['bal']}")
             
             while True:
@@ -75,7 +76,7 @@ while True:
                     amount = int(input("How much?\n>"))
                     if amount >= user['bal']:
                         print("Insufficient Funds")
-                    else:
+                    else: #else	Used in conditional statements
                         user['bal']-=amount
                         
                         #log transaction data
@@ -87,14 +88,14 @@ while True:
                             
                         }
                         
-                        trans_data[acc_num].append(detail)
+                        trans_data[acc_num].append(detail) #append is used to add an item to a list
                         
                         
                         print("Please take your cash")
                         print(f"Balance is {user['bal']}")
                         
-                elif user_input == '2':
-                    amount = int(input("How much?\n>"))
+                elif user_input == '2': #elif	Used in conditional statements, same as else if
+                    amount = int(input("How much?\n>")) #int is a short version of integer
                     
                     user['bal']+=amount
                     
@@ -161,7 +162,7 @@ while True:
                           
                 else:
                     print("Good bye")
-                    break
+                    break # break	To break out of a loop      
         else:
             print("Invalid Login")
             
