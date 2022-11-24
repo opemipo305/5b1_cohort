@@ -1,4 +1,4 @@
-from datetime import datetime   # to work with date you must import date time module 
+from datetime import datetime   # to work with date you must import datetime module 
 import random # The import random loads the random module
 #  a module is a file consisting of Python code. It can define functions, classes, and variables
 
